@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "tKu7OCJASLoa8Hx3BMUI7/L5VOg86qNlXVNbuglfi9Y=",
+  "Source": "AvScanner.Api",
+  "BasePath": "_content/AvScanner.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

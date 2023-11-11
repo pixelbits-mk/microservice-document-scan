@@ -1,0 +1,11 @@
+c:\projects\loadlink\AvScanner\AvScanner.Domain\bin\Debug\net6.0\AvScanner.Domain.deps.json
+c:\projects\loadlink\AvScanner\AvScanner.Domain\bin\Debug\net6.0\AvScanner.Domain.dll
+c:\projects\loadlink\AvScanner\AvScanner.Domain\bin\Debug\net6.0\AvScanner.Domain.pdb
+c:\projects\loadlink\AvScanner\AvScanner.Domain\obj\Debug\net6.0\AvScanner.Domain.GeneratedMSBuildEditorConfig.editorconfig
+c:\projects\loadlink\AvScanner\AvScanner.Domain\obj\Debug\net6.0\AvScanner.Domain.AssemblyInfoInputs.cache
+c:\projects\loadlink\AvScanner\AvScanner.Domain\obj\Debug\net6.0\AvScanner.Domain.AssemblyInfo.cs
+c:\projects\loadlink\AvScanner\AvScanner.Domain\obj\Debug\net6.0\AvScanner.Domain.csproj.CoreCompileInputs.cache
+c:\projects\loadlink\AvScanner\AvScanner.Domain\obj\Debug\net6.0\AvScanner.Domain.dll
+c:\projects\loadlink\AvScanner\AvScanner.Domain\obj\Debug\net6.0\refint\AvScanner.Domain.dll
+c:\projects\loadlink\AvScanner\AvScanner.Domain\obj\Debug\net6.0\AvScanner.Domain.pdb
+c:\projects\loadlink\AvScanner\AvScanner.Domain\obj\Debug\net6.0\ref\AvScanner.Domain.dll

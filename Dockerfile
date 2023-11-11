@@ -1,13 +1,13 @@
 # Build Stage
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["DocumentScanner.Api/DocumentScanner.Api.csproj", "DocumentScanner.Api/"]
-RUN dotnet restore "DocumentScanner.Api/DocumentScanner.Api.csproj"
+COPY ["AvScanner.Api/AvScanner.Api.csproj", "AvScanner.Api/"]
+RUN dotnet restore "AvScanner.Api/AvScanner.Api.csproj"
 
 COPY . .
-WORKDIR "/src/DocumentScanner.Api"
-RUN dotnet build "DocumentScanner.Api.csproj" -c Release -o /app/build
-RUN dotnet publish "DocumentScanner.Api.csproj" -c Release -o /app/publish
+WORKDIR "/src/AvScanner.Api"
+RUN dotnet build "AvScanner.Api.csproj" -c Release -o /app/build
+RUN dotnet publish "AvScanner.Api.csproj" -c Release -o /app/publish
 
 # Runtime Stage
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
@@ -36,4 +36,4 @@ RUN chmod 644 /etc/clamav/clamd.conf
 COPY --from=build /app/publish .
 
 
-CMD service clamav-daemon start & dotnet DocumentScanner.Api.dll
+CMD service clamav-daemon start & dotnet AvScanner.Api.dll
