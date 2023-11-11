@@ -14,6 +14,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
 EXPOSE 80
 
+
 # Set ASPNETCORE_ENVIRONMENT to "Development"
 ENV ASPNETCORE_ENVIRONMENT=Development
 
@@ -35,5 +36,4 @@ RUN chmod 644 /etc/clamav/clamd.conf
 # Copy published files from build stage
 COPY --from=build /app/publish .
 
-
-CMD service clamav-daemon start & dotnet AvScanner.Api.dll
+ENTRYPOINT ["sh", "-c", "service clamav-daemon start && exec dotnet AvScanner.Api.dll"]

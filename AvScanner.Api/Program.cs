@@ -29,6 +29,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScanningServices(configuration);
+builder.Services.AddApplicationInsightsTelemetry(t => t.ConnectionString = configuration["ApplicationInsights:ConnectionString"]);
+
 
 builder.Services.Configure<FormOptions>(options =>
 {
