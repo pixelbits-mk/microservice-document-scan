@@ -9,6 +9,7 @@
       "DocumentScanner.Application/1.0.0": {
         "dependencies": {
           "ClamAV.Net": "0.1.150",
+          "Microsoft.AspNetCore.Http.Features": "5.0.17",
           "System.Memory.Data": "7.0.0"
         },
         "runtime": {
@@ -26,11 +27,39 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Http.Features/5.0.17": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "5.0.1",
+          "System.IO.Pipelines": "5.0.2"
+        },
+        "runtime": {
+          "lib/net5.0/Microsoft.AspNetCore.Http.Features.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.1722.21507"
+          }
+        }
+      },
       "Microsoft.Extensions.Logging.Abstractions/3.1.3": {
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {
             "assemblyVersion": "3.1.3.0",
             "fileVersion": "3.100.320.12802"
+          }
+        }
+      },
+      "Microsoft.Extensions.Primitives/5.0.1": {
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.Extensions.Primitives.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.521.16609"
+          }
+        }
+      },
+      "System.IO.Pipelines/5.0.2": {
+        "runtime": {
+          "lib/netcoreapp3.0/System.IO.Pipelines.dll": {
+            "assemblyVersion": "5.0.0.1",
+            "fileVersion": "5.0.1522.11506"
           }
         }
       },
@@ -92,12 +121,33 @@
       "path": "clamav.net/0.1.150",
       "hashPath": "clamav.net.0.1.150.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.Http.Features/5.0.17": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3jG2xS+dx8DDCGV/F+STdPTg89lX3ao3dF/VEPvJaz3wzBIjuadipTtYNEXDIVuOPZwb6jdmhrX9jkzOIBm5cw==",
+      "path": "microsoft.aspnetcore.http.features/5.0.17",
+      "hashPath": "microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging.Abstractions/3.1.3": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-j6r0E+OVinD4s13CIZASYJLLLApStb1yh5Vig7moB2FE1UsMRj4TYJ/xioDjreVA0dyOFpbWny1/n2iSJMbmNg==",
       "path": "microsoft.extensions.logging.abstractions/3.1.3",
       "hashPath": "microsoft.extensions.logging.abstractions.3.1.3.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Primitives/5.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5WPSmL4YeP7eW+Vc8XZ4DwjYWBAiSwDV9Hm63JJWcz1Ie3Xjv4KuJXzgCstj48LkLfVCYa7mLcx7y+q6yqVvtw==",
+      "path": "microsoft.extensions.primitives/5.0.1",
+      "hashPath": "microsoft.extensions.primitives.5.0.1.nupkg.sha512"
+    },
+    "System.IO.Pipelines/5.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Iew+dfa6FFiyvWBdRmXApixRY1db+beyutpIck4SOSe0NLM8FD/7AD54MscqVLhvfSMLHO7KadjTRT7fqxOGTA==",
+      "path": "system.io.pipelines/5.0.2",
+      "hashPath": "system.io.pipelines.5.0.2.nupkg.sha512"
     },
     "System.Memory.Data/7.0.0": {
       "type": "package",

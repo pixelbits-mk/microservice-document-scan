@@ -1,0 +1,12 @@
+C:\projects\microservice-document-scan\DocumentScanner.Validation\bin\Debug\net6.0\DocumentScanner.Validation.deps.json
+C:\projects\microservice-document-scan\DocumentScanner.Validation\bin\Debug\net6.0\DocumentScanner.Validation.dll
+C:\projects\microservice-document-scan\DocumentScanner.Validation\bin\Debug\net6.0\DocumentScanner.Validation.pdb
+C:\projects\microservice-document-scan\DocumentScanner.Validation\obj\Debug\net6.0\DocumentScanner.Validation.csproj.AssemblyReference.cache
+C:\projects\microservice-document-scan\DocumentScanner.Validation\obj\Debug\net6.0\DocumentScanner.Validation.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\microservice-document-scan\DocumentScanner.Validation\obj\Debug\net6.0\DocumentScanner.Validation.AssemblyInfoInputs.cache
+C:\projects\microservice-document-scan\DocumentScanner.Validation\obj\Debug\net6.0\DocumentScanner.Validation.AssemblyInfo.cs
+C:\projects\microservice-document-scan\DocumentScanner.Validation\obj\Debug\net6.0\DocumentScanner.Validation.csproj.CoreCompileInputs.cache
+C:\projects\microservice-document-scan\DocumentScanner.Validation\obj\Debug\net6.0\DocumentScanner.Validation.dll
+C:\projects\microservice-document-scan\DocumentScanner.Validation\obj\Debug\net6.0\refint\DocumentScanner.Validation.dll
+C:\projects\microservice-document-scan\DocumentScanner.Validation\obj\Debug\net6.0\DocumentScanner.Validation.pdb
+C:\projects\microservice-document-scan\DocumentScanner.Validation\obj\Debug\net6.0\ref\DocumentScanner.Validation.dll

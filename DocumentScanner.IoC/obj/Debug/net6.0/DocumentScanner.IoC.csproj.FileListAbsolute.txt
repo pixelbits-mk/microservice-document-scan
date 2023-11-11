@@ -28,3 +28,5 @@ C:\projects\microservice-document-scan\DocumentScanner.IoC\obj\Debug\net6.0\Docu
 C:\projects\microservice-document-scan\DocumentScanner.IoC\obj\Debug\net6.0\refint\DocumentScanner.IoC.dll
 C:\projects\microservice-document-scan\DocumentScanner.IoC\obj\Debug\net6.0\DocumentScanner.IoC.pdb
 C:\projects\microservice-document-scan\DocumentScanner.IoC\obj\Debug\net6.0\ref\DocumentScanner.IoC.dll
+C:\projects\microservice-document-scan\DocumentScanner.IoC\bin\Debug\net6.0\DocumentScanner.Validation.dll
+C:\projects\microservice-document-scan\DocumentScanner.IoC\bin\Debug\net6.0\DocumentScanner.Validation.pdb

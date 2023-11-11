@@ -9,6 +9,7 @@
       "DocumentScanner.IoC/1.0.0": {
         "dependencies": {
           "DocumentScanner.Application": "1.0.0",
+          "DocumentScanner.Validation": "1.0.0",
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
         },
@@ -24,6 +25,26 @@
           "lib/netstandard2.1/ClamAV.Net.dll": {
             "assemblyVersion": "0.1.150.0",
             "fileVersion": "0.1.150.0"
+          }
+        }
+      },
+      "FluentValidation/11.8.0": {
+        "runtime": {
+          "lib/net6.0/FluentValidation.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.8.0.0"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Http.Features/5.0.17": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "7.0.0",
+          "System.IO.Pipelines": "5.0.2"
+        },
+        "runtime": {
+          "lib/net5.0/Microsoft.AspNetCore.Http.Features.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.1722.21507"
           }
         }
       },
@@ -62,6 +83,14 @@
           "lib/net6.0/Microsoft.Extensions.Primitives.dll": {
             "assemblyVersion": "7.0.0.0",
             "fileVersion": "7.0.22.51805"
+          }
+        }
+      },
+      "System.IO.Pipelines/5.0.2": {
+        "runtime": {
+          "lib/netcoreapp3.0/System.IO.Pipelines.dll": {
+            "assemblyVersion": "5.0.0.1",
+            "fileVersion": "5.0.1522.11506"
           }
         }
       },
@@ -111,10 +140,22 @@
       "DocumentScanner.Application/1.0.0": {
         "dependencies": {
           "ClamAV.Net": "0.1.150",
+          "Microsoft.AspNetCore.Http.Features": "5.0.17",
           "System.Memory.Data": "7.0.0"
         },
         "runtime": {
           "DocumentScanner.Application.dll": {}
+        }
+      },
+      "DocumentScanner.Validation/1.0.0": {
+        "dependencies": {
+          "FluentValidation": "11.8.0",
+          "Microsoft.AspNetCore.Http.Features": "5.0.17",
+          "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
+        },
+        "runtime": {
+          "DocumentScanner.Validation.dll": {}
         }
       }
     }
@@ -131,6 +172,20 @@
       "sha512": "sha512-7gd17MrEqSOxYX6riasgzhdgc3iydso0LG69ryMZ3we46Quo0DhliYoq5Dr7xIyiXMqsIdo6x5GReM2QCEI9ug==",
       "path": "clamav.net/0.1.150",
       "hashPath": "clamav.net.0.1.150.nupkg.sha512"
+    },
+    "FluentValidation/11.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TiEaaYqSIAS+wXQv46LRm8Mca092XYNePD0n231Hqlkmm5FuToZoWnjI1ef/vJUxBzqR7/k2vaVQXxijNgVKRQ==",
+      "path": "fluentvalidation/11.8.0",
+      "hashPath": "fluentvalidation.11.8.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Http.Features/5.0.17": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3jG2xS+dx8DDCGV/F+STdPTg89lX3ao3dF/VEPvJaz3wzBIjuadipTtYNEXDIVuOPZwb6jdmhrX9jkzOIBm5cw==",
+      "path": "microsoft.aspnetcore.http.features/5.0.17",
+      "hashPath": "microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration.Abstractions/7.0.0": {
       "type": "package",
@@ -159,6 +214,13 @@
       "sha512": "sha512-um1KU5kxcRp3CNuI8o/GrZtD4AIOXDk+RLsytjZ9QPok3ttLUelLKpilVPuaFT3TFjOhSibUAso0odbOaCDj3Q==",
       "path": "microsoft.extensions.primitives/7.0.0",
       "hashPath": "microsoft.extensions.primitives.7.0.0.nupkg.sha512"
+    },
+    "System.IO.Pipelines/5.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Iew+dfa6FFiyvWBdRmXApixRY1db+beyutpIck4SOSe0NLM8FD/7AD54MscqVLhvfSMLHO7KadjTRT7fqxOGTA==",
+      "path": "system.io.pipelines/5.0.2",
+      "hashPath": "system.io.pipelines.5.0.2.nupkg.sha512"
     },
     "System.Memory.Data/7.0.0": {
       "type": "package",
@@ -189,6 +251,11 @@
       "hashPath": "system.text.json.7.0.0.nupkg.sha512"
     },
     "DocumentScanner.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DocumentScanner.Validation/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

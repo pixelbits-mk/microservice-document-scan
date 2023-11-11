@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentScanner.Validation;
 
 namespace DocumentScanner.IoC
 {
@@ -18,6 +19,8 @@ namespace DocumentScanner.IoC
         }
         public static IServiceCollection AddScanningServices(this IServiceCollection services, IConfiguration configuration)
         {
+
+            services.AddValidators(configuration);
 
             // Register services for the custom module.
             Container.RegisterServices(services, configuration);

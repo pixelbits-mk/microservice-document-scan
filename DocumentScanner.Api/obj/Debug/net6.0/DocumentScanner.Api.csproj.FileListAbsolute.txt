@@ -42,3 +42,6 @@ C:\projects\microservice-document-scan\DocumentScanner.Api\obj\Debug\net6.0\refi
 C:\projects\microservice-document-scan\DocumentScanner.Api\obj\Debug\net6.0\DocumentScanner.Api.pdb
 C:\projects\microservice-document-scan\DocumentScanner.Api\obj\Debug\net6.0\DocumentScanner.Api.genruntimeconfig.cache
 C:\projects\microservice-document-scan\DocumentScanner.Api\obj\Debug\net6.0\ref\DocumentScanner.Api.dll
+C:\projects\microservice-document-scan\DocumentScanner.Api\bin\Debug\net6.0\FluentValidation.dll
+C:\projects\microservice-document-scan\DocumentScanner.Api\bin\Debug\net6.0\DocumentScanner.Validation.dll
+C:\projects\microservice-document-scan\DocumentScanner.Api\bin\Debug\net6.0\DocumentScanner.Validation.pdb

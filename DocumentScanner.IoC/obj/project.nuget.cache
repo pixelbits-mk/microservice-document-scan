@@ -1,14 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "g1pjSEowY4TQ1h4GKoaHavy0prvceYFr2WSUsuIQFDs0wnuZhe3E3qqYTN6qznZOoLNZ7fbnBJPNHRNeyzth/Q==",
+  "dgSpecHash": "lGY/Ybd+c8L5MkcTTLLYYaIskleRRt/IZqg/I247IezaLJNy6N+4mnWmoeY2zSBbwcBYCg8hs3h0CyCtbseYoA==",
   "success": true,
   "projectFilePath": "C:\\projects\\microservice-document-scan\\DocumentScanner.IoC\\DocumentScanner.IoC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kangm\\.nuget\\packages\\clamav.net\\0.1.150\\clamav.net.0.1.150.nupkg.sha512",
+    "C:\\Users\\kangm\\.nuget\\packages\\fluentvalidation\\11.8.0\\fluentvalidation.11.8.0.nupkg.sha512",
+    "C:\\Users\\kangm\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
     "C:\\Users\\kangm\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\kangm\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\kangm\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.3\\microsoft.extensions.logging.abstractions.3.1.3.nupkg.sha512",
     "C:\\Users\\kangm\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "C:\\Users\\kangm\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512",
     "C:\\Users\\kangm\\.nuget\\packages\\system.memory.data\\7.0.0\\system.memory.data.7.0.0.nupkg.sha512",
     "C:\\Users\\kangm\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\kangm\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",

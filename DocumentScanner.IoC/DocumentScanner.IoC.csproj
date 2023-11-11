@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocumentScanner.Application\DocumentScanner.Application.csproj" />
+    <ProjectReference Include="..\DocumentScanner.Validation\DocumentScanner.Validation.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@ namespace DocumentScanner.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DocumentScannerController : ControllerBase
+    public class DocumentScannerController : BaseController
     {
         private readonly IScanningService _scanningService;
         private readonly ILogger<DocumentScannerController> _logger;
@@ -31,23 +31,48 @@ namespace DocumentScanner.Api.Controllers
                 {
                     return BadRequest("No file data provided");
                 }
-
-                using (var memoryStream = new MemoryStream())
+                var scanResult = await _scanningService.ScanFile(file);
+                if (scanResult.Success)
                 {
-                    await file.CopyToAsync(memoryStream);
-                    var fileBytes = memoryStream.ToArray();
-
-                    var scanResult = await _scanningService.Scan(fileBytes);
-
-                    if (scanResult.Success)
-                    {
-                        return Ok("File is clean.");
-                    }
-                    else
-                    {
-                        return BadRequest($"File is infected. Reason: {scanResult.FailureReason}");
-                    }
+                    return Ok("File is clean.");
                 }
+                else
+                {
+                    return BadRequest($"File is infected. Reason: {scanResult.FailureReason}");
+                }
+            }
+            catch (TimeoutException)
+            {
+                return StatusCode(408, "Scan operation timed out");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during file scanning");
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("ScanMultipleFiles")]
+        public async Task<IActionResult> ScanMultipleFiles([FromForm] List<IFormFile> files)
+        {
+            try
+            {
+                if (files == null || files.Count == 0)
+                {
+                    return BadRequest("No files provided");
+                }
+
+                var scanResult = await _scanningService.ScanMultipleFiles(files);
+
+                if (!scanResult.Success)
+                {
+                    // If any file is infected, return a BadRequest response
+                    return BadRequest($"File is infected. Reason: {scanResult.FailureReason}");
+                }
+
+                // If all files are clean, return an Ok response
+                return Ok("All files are clean.");
             }
             catch (TimeoutException)
             {
@@ -98,12 +123,12 @@ namespace DocumentScanner.Api.Controllers
                 using (var ms = new MemoryStream())
                 {
                     await Request.Body.CopyToAsync(ms);
-                    byte[] binaryData = ms.ToArray();
-                    if (binaryData == null || binaryData.Length == 0)
-                    {
-                        return BadRequest("No binary data provided");
-                    }
-                    var scanResult = await _scanningService.Scan(binaryData);
+                    //byte[] binaryData = ms.ToArray();
+                    //if (binaryData == null || binaryData.Length == 0)
+                    //{
+                    //    return BadRequest("No binary data provided");
+                    //}
+                    var scanResult = await _scanningService.ScanStream(ms);
 
                     if (scanResult.Success)
                     {
@@ -127,5 +152,37 @@ namespace DocumentScanner.Api.Controllers
                 throw;
             }
         }
+        [HttpPost]
+        [Route("ScanRemoteUrl")]
+        public async Task<IActionResult> ScanRemoteUrl([FromQuery] string url)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(url))
+                {
+                    return BadRequest("No URL provided");
+                }
+
+                var scanResult = await _scanningService.ScanRemoteUrl(url);
+
+                if (scanResult.Success)
+                {
+                    return Ok("File is clean.");
+                }
+                else
+                {
+                    return BadRequest($"File is infected. Reason: {scanResult.FailureReason}");
+                }
+            }
+            catch (TimeoutException)
+            {
+                return StatusCode(408, "Scan operation timed out");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during URL scanning");
+                throw;
+            }
+        }   
     }
 }

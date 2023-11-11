@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[0.1.150, )"
             },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
             "System.Memory.Data": {
               "target": "Package",
               "version": "[7.0.0, )"
