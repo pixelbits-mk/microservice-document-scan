@@ -21,10 +21,14 @@ namespace DocumentScanner.Validation.Services.ScanningService
         }
         public ScanDataValidator()
         {
-            RuleFor(c => c)
-                .Must(c => c != null && c.Length > 0)
-                .WithMessage("data cannot be empty");
-           
+            RuleFor(data => data)
+                .NotNull().WithMessage("Data cannot be null")
+                .NotEmpty().WithMessage("Data cannot be empty");
+
+            RuleFor(data => data.Length)
+                .GreaterThan(0).WithMessage("Data length must be greater than 0");
+
+
         }
 
     }

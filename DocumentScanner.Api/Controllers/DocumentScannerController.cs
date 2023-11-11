@@ -1,10 +1,12 @@
 using DocumentScanner.Application.Interfaces;
+using DocumentScanner.Validation.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace DocumentScanner.Api.Controllers
 {
@@ -27,6 +29,13 @@ namespace DocumentScanner.Api.Controllers
         {
             try
             {
+                var validationResult = Validate(ValidatorId.ScanFile, file);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+
+
                 if (file == null || file.Length == 0)
                 {
                     return BadRequest("No file data provided");
@@ -58,6 +67,13 @@ namespace DocumentScanner.Api.Controllers
         {
             try
             {
+                var validationResult = Validate(ValidatorId.ScanMultipleFiles, files);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+
+
                 if (files == null || files.Count == 0)
                 {
                     return BadRequest("No files provided");
@@ -85,49 +101,26 @@ namespace DocumentScanner.Api.Controllers
             }
         }
 
-        //[HttpPost]
-        //[Route("ScanData")]
-        //public async Task<IActionResult> ScanData([FromBody] byte[] binaryData)
-        //{
-        //    try
-        //    {
 
-        //        if (binaryData == null || binaryData.Length == 0)
-        //        {
-        //            return BadRequest("No binary data provided");
-        //        }
-
-        //        var scanResult = await _scanningService.Scan(binaryData);
-
-        //        if (scanResult.Success)
-        //        {
-        //            return Ok("Data is clean.");
-        //        }
-        //        else
-        //        {
-        //            return BadRequest($"Data is infected. Reason: {scanResult.FailureReason}");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Error during binary data scanning");
-        //        throw;
-        //    }
-        //}
         [HttpPost]
         [Route("ScanData")]
         public async Task<IActionResult> ScanData()
         {
             try
             {
+                
                 using (var ms = new MemoryStream())
                 {
                     await Request.Body.CopyToAsync(ms);
-                    //byte[] binaryData = ms.ToArray();
-                    //if (binaryData == null || binaryData.Length == 0)
-                    //{
-                    //    return BadRequest("No binary data provided");
-                    //}
+                    byte[] binaryData = ms.ToArray();
+
+                    var validationResult = Validate(ValidatorId.ScanData, binaryData);
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+
                     var scanResult = await _scanningService.ScanStream(ms);
 
                     if (scanResult.Success)
@@ -158,6 +151,12 @@ namespace DocumentScanner.Api.Controllers
         {
             try
             {
+                var validationResult = Validate(ValidatorId.ScanRemoteUrl, url);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+
                 if (string.IsNullOrEmpty(url))
                 {
                     return BadRequest("No URL provided");
@@ -183,6 +182,44 @@ namespace DocumentScanner.Api.Controllers
                 _logger.LogError(ex, "Error during URL scanning");
                 throw;
             }
-        }   
+        }
+
+        [HttpPost]
+        [Route("ScanMultipleRemoteUrls")]
+        public async Task<IActionResult> ScanMultipleRemoteUrls([FromQuery] string[] urls)
+        {
+            try
+            {
+                var validationResult = Validate(ValidatorId.ScanMultipleRemoteUrls, urls);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+                if (urls.Length == 0)
+                {
+                    return BadRequest("No URL provided");
+                }
+
+                var scanResult = await _scanningService.ScanMultipleRemoteUrls(urls);
+
+                if (scanResult.Success)
+                {
+                    return Ok("File is clean.");
+                }
+                else
+                {
+                    return BadRequest($"File is infected. Reason: {scanResult.FailureReason}");
+                }
+            }
+            catch (TimeoutException)
+            {
+                return StatusCode(408, "Scan operation timed out");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during URL scanning");
+                throw;
+            }
+        }
     }
 }

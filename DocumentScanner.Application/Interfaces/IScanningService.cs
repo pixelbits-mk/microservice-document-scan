@@ -14,6 +14,9 @@ namespace DocumentScanner.Application.Interfaces
         Task<Models.ScanResult> ScanFile(IFormFile file);
         Task<Models.ScanResult> ScanMultipleFiles(List<IFormFile> files);
         Task<Models.ScanResult> ScanRemoteUrl(string url);
+
+        Task<Models.ScanResult> ScanMultipleRemoteUrls(string [] url);
+
         Task<Models.ScanResult> ScanStream(Stream stream);
 
     }

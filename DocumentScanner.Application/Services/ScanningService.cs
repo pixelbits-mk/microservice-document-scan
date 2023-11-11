@@ -1,5 +1,6 @@
 ﻿using ClamAV.Net.Client;
 using DocumentScanner.Application.Interfaces;
+using DocumentScanner.Application.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging; // Include the appropriate logging namespace
 
@@ -86,6 +87,40 @@ namespace DocumentScanner.Application.Services
                 {
                     // If any file is infected, return a failure result
                     return new Models.ScanResult { Success = false, FailureReason = "One or more files are infected" };
+                }
+
+                // If all files are clean, return a success result
+                return new Models.ScanResult { Success = true };
+            }
+            catch (TimeoutException)
+            {
+                return new Models.ScanResult { Success = false, FailureReason = "Scan operation timed out" };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during file scanning");
+                throw;
+            }
+        }
+
+        public async Task<ScanResult> ScanMultipleRemoteUrls(string[] urls)
+        {
+            try
+            {
+                if (urls.Length == 0)
+                {
+                    throw new ArgumentNullException(nameof(urls), "No URLs provided");
+                }
+
+                var scanTasks = urls.Select(url => ScanRemoteUrl(url));
+
+                var scanResults = await Task.WhenAll(scanTasks);
+
+                // Check if any file is infected
+                if (scanResults.Any(result => !result.Success))
+                {
+                    // If any file is infected, return a failure result
+                    return new Models.ScanResult { Success = false, FailureReason = "One or more URLs are infected" };
                 }
 
                 // If all files are clean, return a success result

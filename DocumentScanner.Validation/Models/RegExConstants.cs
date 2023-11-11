@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace DocumentScanner.Validation.Models
 {
-    public enum ValidatorId
+    public class RegExConstants
     {
-        ScanFile,
-        ScanMultipleFiles,
-        ScanData,
-        ScanRemoteUrl,
-        ScanMultipleRemoteUrls
+        public const string RemoteUrl = @"^https?://[^\s/$.?#].[^\s]*$";
     }
-
 }
+

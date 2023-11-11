@@ -1,5 +1,6 @@
 ﻿using DocumentScanner.Validation.Interfaces;
 using DocumentScanner.Validation.Services;
+using DocumentScanner.Validation.Services.ScanningService;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -22,7 +23,11 @@ namespace DocumentScanner.Validation
         public static IServiceCollection AddValidators(this IServiceCollection services, IConfiguration configuration)
         {
             var validators = new List<IValidator> {
-
+                new ScanDataValidator(),
+                new ScanFileValidator(),
+                new ScanMultipleFilesValidator(),
+                new ScanRemoteUrlValidator(),
+                new ScanMultipleRemoteUrlsValidator()                
             };
 
             services.AddSingleton<IList<IValidator>>(validators);

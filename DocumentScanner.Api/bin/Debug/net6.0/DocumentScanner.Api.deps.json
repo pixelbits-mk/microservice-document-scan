@@ -186,6 +186,7 @@
       "DocumentScanner.Validation/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.8.0",
+          "Microsoft.AspNetCore.Http.Features": "5.0.17",
           "Microsoft.Extensions.Configuration.Abstractions": "7.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
         },
