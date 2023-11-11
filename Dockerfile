@@ -1,5 +1,5 @@
-# Use a Debian-based image as a base image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+# Use a Debian-based image as a base image for .NET 6.0
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
 
@@ -12,7 +12,7 @@ RUN apt-get update && \
     freshclam
 
 # Copy the project files and restore as distinct layers
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["DocumentScanner.Api/DocumentScanner.Api.csproj", "DocumentScanner.Api/"]
 RUN dotnet restore "DocumentScanner.Api/DocumentScanner.Api.csproj"

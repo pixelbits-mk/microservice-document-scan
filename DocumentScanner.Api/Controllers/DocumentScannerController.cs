@@ -1,5 +1,10 @@
 using DocumentScanner.Application.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace DocumentScanner.Api.Controllers
 {
@@ -7,7 +12,6 @@ namespace DocumentScanner.Api.Controllers
     [Route("[controller]")]
     public class DocumentScannerController : ControllerBase
     {
-
         private readonly IScanningService _scanningService;
         private readonly ILogger<DocumentScannerController> _logger;
 
@@ -19,24 +23,30 @@ namespace DocumentScanner.Api.Controllers
 
         [HttpPost]
         [Route("ScanData")]
-        public async Task<IActionResult> ScanData([FromBody] byte[] fileBytes)
+        public async Task<IActionResult> ScanData(IFormFile file)
         {
             try
             {
-                if (fileBytes == null || fileBytes.Length == 0)
+                if (file == null || file.Length == 0)
                 {
                     return BadRequest("No file data provided");
                 }
 
-                var scanResult = await _scanningService.Scan(fileBytes);
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(memoryStream);
+                    var fileBytes = memoryStream.ToArray();
 
-                if (scanResult.Success)
-                {
-                    return Ok("File is clean.");
-                }
-                else
-                {
-                    return BadRequest($"File is infected. Reason: {scanResult.FailureReason}");
+                    var scanResult = await _scanningService.Scan(fileBytes);
+
+                    if (scanResult.Success)
+                    {
+                        return Ok("File is clean.");
+                    }
+                    else
+                    {
+                        return BadRequest($"File is infected. Reason: {scanResult.FailureReason}");
+                    }
                 }
             }
             catch (Exception ex)
