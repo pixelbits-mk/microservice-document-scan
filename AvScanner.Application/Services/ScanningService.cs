@@ -3,7 +3,8 @@ using AvScanner.Application.Interfaces;
 using AvScanner.Application.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging; // Include the appropriate logging namespace
-
+using Microsoft.ApplicationInsights;
+using System.IO;
 
 namespace AvScanner.Application.Services
 {
@@ -11,31 +12,75 @@ namespace AvScanner.Application.Services
     {
         private readonly IClamAvClient _clamAvClient;
         private readonly ILogger<ScanningService> _logger; // Add a logger
+        private readonly TelemetryClient _telemetryClient;
 
-        public ScanningService(IClamAvClient clamAvClient, ILogger<ScanningService> logger)
+        public ScanningService(IClamAvClient clamAvClient, ILogger<ScanningService> logger, TelemetryClient telemetryClient)
         {
             _clamAvClient = clamAvClient;
             _logger = logger;
+            _telemetryClient = telemetryClient;
+        }
+        private async Task<ClamAV.Net.Client.Results.ScanResult> PerformScan(Stream stream, int maxRetries = 2)
+        {
+            int retryCount = 0;
+
+            while (retryCount <= maxRetries)
+            {
+                var startTime = DateTime.UtcNow;
+
+                try
+                {
+                    // Your scan logic here
+                    return await _clamAvClient.ScanDataAsync(stream);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception (adjust the logging based on your needs)
+                    _logger.LogError(ex, $"Error during scan attempt {retryCount + 1}");
+
+                    // Increment the retry count
+                    retryCount++;
+
+                    // If this was the last retry, rethrow the exception
+                    if (retryCount > maxRetries)
+                    {
+                        _telemetryClient.GetMetric("ScanErrors").TrackValue(1);
+                        throw;
+                    }
+                }
+                finally
+                {
+                    var endTime = DateTime.UtcNow;
+                    var scanDuration = endTime - startTime;
+
+                    // Log ScanTime
+                    _telemetryClient.GetMetric("ScanTime").TrackValue(scanDuration.TotalMilliseconds);
+                }
+            }
+
+            // This point is reached only if all retry attempts fail
+            throw new InvalidOperationException("Exceeded maximum number of retry attempts");
         }
 
-        public async Task<Models.ScanResult> ScanData(byte[] data)
+        public async Task<ScanResult> ScanData(byte[] data)
         {
             if (data == null || data.Length == 0)
             {
-                return new Models.ScanResult { Success = false, FailureReason = "Invalid data" };
+                return new ScanResult { Success = false, FailureReason = "Invalid data" };
             }
 
             using (var memoryStream = new MemoryStream(data))
             {
-                var scanResult = await _clamAvClient.ScanDataAsync(memoryStream);
+                var scanResult = await PerformScan(memoryStream);
 
                 if (scanResult.Infected)
                 {
                     _logger.LogWarning($"File is infected. Virus name: {scanResult.VirusName}");
-                    return new Models.ScanResult { Success = false, FailureReason = $"File is infected. Virus name: {scanResult.VirusName}" };
+                    _telemetryClient.GetMetric("ScanFailures").TrackValue(1);
+                    return new ScanResult { Success = false, FailureReason = $"File is infected. Virus name: {scanResult.VirusName}" };
                 }
-
-                return new Models.ScanResult { Success = true };
+                _telemetryClient.GetMetric("ScansCompleted").TrackValue(1);
+                return new ScanResult { Success = true };
             }
         }
 
@@ -52,14 +97,16 @@ namespace AvScanner.Application.Services
                 {
                     await file.CopyToAsync(memoryStream);
 
-                    var scanResult = await _clamAvClient.ScanDataAsync(memoryStream);
+                    var scanResult = await PerformScan(memoryStream);
 
                     if (scanResult.Infected)
                     {
                         _logger.LogWarning($"File is infected. Virus name: {scanResult.VirusName}");
-                        return new Models.ScanResult { Success = false, FailureReason = $"File is infected. Virus name: {scanResult.VirusName}" };
+                        _telemetryClient.GetMetric("ScanFailures").TrackValue(1);
+                        return new ScanResult { Success = false, FailureReason = $"File is infected. Virus name: {scanResult.VirusName}" };
                     }
-                    return new Models.ScanResult { Success = true };
+                    _telemetryClient.GetMetric("ScansCompleted").TrackValue(1);
+                    return new ScanResult { Success = true };
                 }
             }
             catch (Exception ex)
@@ -69,7 +116,7 @@ namespace AvScanner.Application.Services
             }
         }
 
-        public async Task<Models.ScanResult> ScanMultipleFiles(List<IFormFile> files)
+        public async Task<ScanResult> ScanMultipleFiles(List<IFormFile> files)
         {
             try
             {
@@ -86,15 +133,17 @@ namespace AvScanner.Application.Services
                 if (scanResults.Any(result => !result.Success))
                 {
                     // If any file is infected, return a failure result
-                    return new Models.ScanResult { Success = false, FailureReason = "One or more files are infected" };
+                    _telemetryClient.GetMetric("ScanFailures").TrackValue(1);
+                    return new ScanResult { Success = false, FailureReason = "One or more files are infected" };
                 }
 
+                _telemetryClient.GetMetric("ScansCompleted").TrackValue(1);
                 // If all files are clean, return a success result
-                return new Models.ScanResult { Success = true };
+                return new ScanResult { Success = true };
             }
             catch (TimeoutException)
             {
-                return new Models.ScanResult { Success = false, FailureReason = "Scan operation timed out" };
+                return new ScanResult { Success = false, FailureReason = "Scan operation timed out" };
             }
             catch (Exception ex)
             {
@@ -119,16 +168,18 @@ namespace AvScanner.Application.Services
                 // Check if any file is infected
                 if (scanResults.Any(result => !result.Success))
                 {
+                    _telemetryClient.GetMetric("ScanFailures").TrackValue(1);
                     // If any file is infected, return a failure result
-                    return new Models.ScanResult { Success = false, FailureReason = "One or more URLs are infected" };
+                    return new ScanResult { Success = false, FailureReason = "One or more URLs are infected" };
                 }
 
+                _telemetryClient.GetMetric("ScansCompleted").TrackValue(1);
                 // If all files are clean, return a success result
-                return new Models.ScanResult { Success = true };
+                return new ScanResult { Success = true };
             }
             catch (TimeoutException)
             {
-                return new Models.ScanResult { Success = false, FailureReason = "Scan operation timed out" };
+                return new ScanResult { Success = false, FailureReason = "Scan operation timed out" };
             }
             catch (Exception ex)
             {
@@ -137,7 +188,7 @@ namespace AvScanner.Application.Services
             }
         }
 
-        public async Task<Models.ScanResult> ScanRemoteUrl(string remoteUrl)
+        public async Task<ScanResult> ScanRemoteUrl(string remoteUrl)
         {
             using (var httpClient = new HttpClient())
             {
@@ -147,15 +198,17 @@ namespace AvScanner.Application.Services
 
                     using (var memoryStream = new MemoryStream(fileData))
                     {
-                        var scanResult = await _clamAvClient.ScanDataAsync(memoryStream);
+                        var scanResult = await PerformScan(memoryStream);
 
                         if (scanResult.Infected)
                         {
+                            _telemetryClient.GetMetric("ScanFailures").TrackValue(1);
                             _logger.LogWarning($"File is infected. Virus name: {scanResult.VirusName}");
-                            return new Models.ScanResult { Success = false, FailureReason = $"File is infected. Virus name: {scanResult.VirusName}" };
+                            return new ScanResult { Success = false, FailureReason = $"File is infected. Virus name: {scanResult.VirusName}" };
                         }
 
-                        return new Models.ScanResult { Success = true };
+                        _telemetryClient.GetMetric("ScansCompleted").TrackValue(1);
+                        return new ScanResult { Success = true };
                     }
                 }
                 catch (Exception ex)
@@ -170,15 +223,17 @@ namespace AvScanner.Application.Services
         {
             try
             {
-                var scanResult = await _clamAvClient.ScanDataAsync(stream);
+                var scanResult = await PerformScan(stream);
 
                 if (scanResult.Infected)
                 {
                     _logger.LogWarning($"File is infected. Virus name: {scanResult.VirusName}");
-                    return new Models.ScanResult { Success = false, FailureReason = $"File is infected. Virus name: {scanResult.VirusName}" };
+                    _telemetryClient.GetMetric("ScanFailures").TrackValue(1);
+                    return new ScanResult { Success = false, FailureReason = $"File is infected. Virus name: {scanResult.VirusName}" };
                 }
 
-                return new Models.ScanResult { Success = true };
+                _telemetryClient.GetMetric("ScansCompleted").TrackValue(1);
+                return new ScanResult { Success = true };
             }
             catch (Exception ex)
             {
