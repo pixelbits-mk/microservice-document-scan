@@ -11,6 +11,10 @@ RUN apt-get update && \
     apt-get install -y clamav clamav-daemon && \
     freshclam
 
+# Copy ClamAV configuration and signature database
+COPY ./clamad.conf /etc/clamav/clamd.conf
+# COPY ./clamav/* /var/lib/clamav/
+
 # Copy the project files and restore as distinct layers
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
@@ -29,4 +33,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-ENTRYPOINT ["dotnet", "DocumentScanner.Api.dll"]
+# ENTRYPOINT ["dotnet", "DocumentScanner.Api.dll"]

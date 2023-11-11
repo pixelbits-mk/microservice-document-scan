@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentScanner.IoC", "Docu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE5A7A01-43E3-4635-83E2-06B8B9549D6F}"
 	ProjectSection(SolutionItems) = preProject
+		clamad.conf = clamad.conf
 		Dockerfile = Dockerfile
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
