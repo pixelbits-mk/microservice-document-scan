@@ -8,12 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.AzureAppServices" Version="7.0.12" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AvScanner.Application\AvScanner.Application.csproj" />
     <ProjectReference Include="..\AvScanner.Validation\AvScanner.Validation.csproj" />
+    <ProjectReference Include="..\Common.Util\Common.Util.csproj" />
   </ItemGroup>
 
 </Project>
