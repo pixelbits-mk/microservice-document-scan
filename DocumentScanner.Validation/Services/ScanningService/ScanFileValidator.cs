@@ -41,8 +41,7 @@ namespace DocumentScanner.Validation.Services.ScanningService
             // Add logic to check if the content type is valid based on your requirements
             // For example, you might check if it's an allowed MIME type.
             // This is a simple example, and you may need to customize it.
-            var allowedContentTypes = new[] { "image/jpeg", "image/png", "application/pdf" };
-            return allowedContentTypes.Contains(contentType);
+            return ContentTypes.All.Contains(contentType);
         }
     }
 }
