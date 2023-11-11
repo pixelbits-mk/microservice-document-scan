@@ -22,8 +22,8 @@ namespace DocumentScanner.Api.Controllers
         }
 
         [HttpPost]
-        [Route("ScanData")]
-        public async Task<IActionResult> ScanData(IFormFile file)
+        [Route("ScanFile")]
+        public async Task<IActionResult> ScanFile(IFormFile file)
         {
             try
             {
@@ -49,10 +49,82 @@ namespace DocumentScanner.Api.Controllers
                     }
                 }
             }
+            catch (TimeoutException)
+            {
+                return StatusCode(408, "Scan operation timed out");
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error during file scanning");
-                return StatusCode(500, "Internal server error");
+                throw;
+            }
+        }
+
+        //[HttpPost]
+        //[Route("ScanData")]
+        //public async Task<IActionResult> ScanData([FromBody] byte[] binaryData)
+        //{
+        //    try
+        //    {
+
+        //        if (binaryData == null || binaryData.Length == 0)
+        //        {
+        //            return BadRequest("No binary data provided");
+        //        }
+
+        //        var scanResult = await _scanningService.Scan(binaryData);
+
+        //        if (scanResult.Success)
+        //        {
+        //            return Ok("Data is clean.");
+        //        }
+        //        else
+        //        {
+        //            return BadRequest($"Data is infected. Reason: {scanResult.FailureReason}");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error during binary data scanning");
+        //        throw;
+        //    }
+        //}
+        [HttpPost]
+        [Route("ScanData")]
+        public async Task<IActionResult> ScanData()
+        {
+            try
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await Request.Body.CopyToAsync(ms);
+                    byte[] binaryData = ms.ToArray();
+                    if (binaryData == null || binaryData.Length == 0)
+                    {
+                        return BadRequest("No binary data provided");
+                    }
+                    var scanResult = await _scanningService.Scan(binaryData);
+
+                    if (scanResult.Success)
+                    {
+                        return Ok("Data is clean.");
+                    }
+                    else
+                    {
+                        return BadRequest($"Data is infected. Reason: {scanResult.FailureReason}");
+                    }
+
+                }
+
+            }
+            catch (TimeoutException)
+            {
+                return StatusCode(408, "Scan operation timed out");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during binary data scanning");
+                throw;
             }
         }
     }

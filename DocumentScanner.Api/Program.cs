@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using DocumentScanner.IoC;
+using Microsoft.AspNetCore.Http.Features;
+using DocumentScanner.Application.Models;
 
 string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
@@ -9,7 +11,16 @@ IConfiguration configuration = new ConfigurationBuilder()
    .AddEnvironmentVariables()
    .Build();
 
+var maxFileSizeBytes = configuration.GetValue<int>("Settings:MaxFileSizeBytes");
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = maxFileSizeBytes; // Set your desired max size in bytes
+    options.Limits.KeepAliveTimeout = TimeSpan.FromSeconds(30);
+});
+
 
 // Add services to the container.
 
@@ -18,7 +29,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScanningServices(configuration);
+
+builder.Services.Configure<FormOptions>(options =>
+{
+
+    
+    options.MultipartBodyLengthLimit = maxFileSizeBytes; // 30 MB
+});
+
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -31,6 +53,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+
+ app.MapControllers();
+
 
 app.Run();
