@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "1OPTgZ93f4sc3/PIP6sIDHeL5v0wcntTEfeUHEKORqE=",
+  "Source": "DocumentScanner.Api",
+  "BasePath": "_content/DocumentScanner.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

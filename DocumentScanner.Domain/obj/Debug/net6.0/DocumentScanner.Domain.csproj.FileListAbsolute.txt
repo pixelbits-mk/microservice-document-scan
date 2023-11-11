@@ -1,0 +1,11 @@
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\bin\Debug\net6.0\DocumentScanner.Domain.deps.json
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\bin\Debug\net6.0\DocumentScanner.Domain.dll
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\bin\Debug\net6.0\DocumentScanner.Domain.pdb
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\obj\Debug\net6.0\DocumentScanner.Domain.GeneratedMSBuildEditorConfig.editorconfig
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\obj\Debug\net6.0\DocumentScanner.Domain.AssemblyInfoInputs.cache
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\obj\Debug\net6.0\DocumentScanner.Domain.AssemblyInfo.cs
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\obj\Debug\net6.0\DocumentScanner.Domain.csproj.CoreCompileInputs.cache
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\obj\Debug\net6.0\DocumentScanner.Domain.dll
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\obj\Debug\net6.0\refint\DocumentScanner.Domain.dll
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\obj\Debug\net6.0\DocumentScanner.Domain.pdb
+c:\projects\loadlink\DocumentScanner\DocumentScanner.Domain\obj\Debug\net6.0\ref\DocumentScanner.Domain.dll

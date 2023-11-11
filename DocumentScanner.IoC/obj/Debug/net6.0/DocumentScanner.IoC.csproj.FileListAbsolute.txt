@@ -1,0 +1,15 @@
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\bin\Debug\net6.0\DocumentScanner.IoC.deps.json
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\bin\Debug\net6.0\DocumentScanner.IoC.dll
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\bin\Debug\net6.0\DocumentScanner.IoC.pdb
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\DocumentScanner.IoC.GeneratedMSBuildEditorConfig.editorconfig
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\DocumentScanner.IoC.AssemblyInfoInputs.cache
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\DocumentScanner.IoC.AssemblyInfo.cs
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\DocumentScanner.IoC.csproj.CoreCompileInputs.cache
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\DocumentScanner.IoC.dll
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\refint\DocumentScanner.IoC.dll
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\DocumentScanner.IoC.pdb
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\ref\DocumentScanner.IoC.dll
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\bin\Debug\net6.0\DocumentScanner.Application.dll
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\bin\Debug\net6.0\DocumentScanner.Application.pdb
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\DocumentScanner.IoC.csproj.AssemblyReference.cache
+c:\projects\loadlink\DocumentScanner\DocumentScanner.IoC\obj\Debug\net6.0\DocumentScanner.IoC.csproj.CopyComplete

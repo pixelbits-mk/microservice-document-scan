@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "PWr0qQFcIarAfPvZfkiP599LmkJPw1hA9D7Cu8i8OqfhxJ8MfwzvWB8zEVcKGpNo7oZDBFVibEtoEm4O0WqWKg==",
+  "success": true,
+  "projectFilePath": "c:\\projects\\loadlink\\DocumentScanner\\DocumentScanner.IoC\\DocumentScanner.IoC.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\michaelk\\.nuget\\packages\\clamav.net\\0.1.150\\clamav.net.0.1.150.nupkg.sha512",
+    "C:\\Users\\michaelk\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\michaelk\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\michaelk\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.3\\microsoft.extensions.logging.abstractions.3.1.3.nupkg.sha512",
+    "C:\\Users\\michaelk\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "C:\\Users\\michaelk\\.nuget\\packages\\system.memory.data\\7.0.0\\system.memory.data.7.0.0.nupkg.sha512",
+    "C:\\Users\\michaelk\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\michaelk\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
+    "C:\\Users\\michaelk\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
