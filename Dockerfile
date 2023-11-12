@@ -2,8 +2,17 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 
-ARG NUGET_PAT
-RUN nuget sources Add -Name "kangmike" -Source "https://pkgs.dev.azure.com/kangmike/_packaging/kangmike/nuget/v3/index.json" -UserName kangmike -Password qrk2odzaf75zr4vckj2b5xlv2mkmvyc27t2wpt3du3no3ol7sqmq
+
+# Set up environment variable with NuGet feed URL
+ENV NUGET_FEED_URL=https://pkgs.dev.azure.com/kangmike/_packaging/kangmike/nuget/v3/index.json
+
+# Set up environment variable with your PAT
+ENV NUGET_PAT=qrk2odzaf75zr4vckj2b5xlv2mkmvyc27t2wpt3du3no3ol7sqmq
+
+RUN apt-get update && apt-get install -y nuget 
+
+COPY ["nuget.config", "/nuget.config"]
+# RUN dotnet nuget update source "kangmike" -s $NUGET_FEED_URL -u kangmike -p "$NUGET_PAT" --store-password-in-clear-text
 
 
 COPY ["AvScanner.Api/AvScanner.Api.csproj", "AvScanner.Api/"]
