@@ -1,6 +1,11 @@
 # Build Stage
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
+
+ARG NUGET_PAT
+RUN nuget sources Add -Name "kangmike" -Source "https://pkgs.dev.azure.com/kangmike/_packaging/kangmike/nuget/v3/index.json" -UserName kangmike -Password qrk2odzaf75zr4vckj2b5xlv2mkmvyc27t2wpt3du3no3ol7sqmq
+
+
 COPY ["AvScanner.Api/AvScanner.Api.csproj", "AvScanner.Api/"]
 RUN dotnet restore "AvScanner.Api/AvScanner.Api.csproj"
 
