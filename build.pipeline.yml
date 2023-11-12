@@ -7,6 +7,7 @@ pool:
 variables:
   buildDate: $[format('{0:yyyyMMdd}', pipeline.startTime)]
   buildCounter: $[counter(variables['buildDate'], 1)]
+  buildVersion: '$(buildDate).$(buildCounter)'  
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
@@ -33,7 +34,7 @@ steps:
     dockerfile: '$(dockerfilePath)'
     buildContext: '$(Build.SourcesDirectory)'
     tags: |
-      $(buildDate).$(buildCounter)
+      $(buildVersion)
       latest
 
 - task: DotNetCoreCLI@2
