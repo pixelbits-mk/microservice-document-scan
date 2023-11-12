@@ -11,7 +11,7 @@ variables:
   nugetServiceConnection: 'NuGet Service Connection'
   dockerRegistryServiceConnection: 'Azure Container Registry'
   dockerfilePath: './Dockerfile'
-  imageName: 'studioworks/avscanner-api'
+  imageName: 'avscanner-api'
 
 steps:
 - task: UseDotNet@2
