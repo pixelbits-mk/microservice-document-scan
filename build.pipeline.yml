@@ -10,7 +10,7 @@ variables:
   buildConfiguration: 'Release'
   dockerRegistryServiceConnection: 'Azure Container Registry'
   dockerfilePath: './Dockerfile'
-  imageName: 'studioworks/avscanner-api:$(Build.BuildId)'
+  imageName: 'studioworks/avscanner-api'
 
 steps:
 - task: UseDotNet@2
