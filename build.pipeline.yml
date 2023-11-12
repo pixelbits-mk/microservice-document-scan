@@ -8,6 +8,9 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  dockerRegistryServiceConnection: '<Your-Service-Connection-Name>'
+  dockerfilePath: './Dockerfile'
+  imageName: 'studioworks/avscanner-api:$(Build.BuildId)'
 
 steps:
 - task: UseDotNet@2
@@ -16,11 +19,23 @@ steps:
     version: '3.x'
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
+- task: Docker@2
+  displayName: 'Build and Push Docker Image'
+  inputs:
+    command: 'buildAndPush'
+    containerRegistry: '$(dockerRegistryServiceConnection)'
+    repository: '$(imageName)'
+    dockerfile: '$(dockerfilePath)'
+    buildContext: '$(Build.SourcesDirectory)'
+    tags: |
+      $(Build.BuildId)
+      latest
+
 - task: DotNetCoreCLI@2
   displayName: 'Restore NuGet Packages'
   inputs:
     command: 'restore'
-    projects: '$(solution)'
+    projects: 'AvScanner.Api/AvScanner.Api.csproj'
     feedsToUse: 'select'
     vstsFeed: '<Your-VSTS-Feed-Id>'
 
@@ -28,14 +43,14 @@ steps:
   displayName: 'Build'
   inputs:
     command: 'build'
-    projects: '$(solution)'
+    projects: 'AvScanner.Api/AvScanner.Api.csproj'
     configuration: '$(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Run Unit Tests'
   inputs:
     command: 'test'
-    projects: '**/*Tests/*.csproj'
+    projects: 'AvScanner.Api.Tests/AvScanner.Api.Tests.csproj'
     configuration: '$(buildConfiguration)'
     nobuild: true
     arguments: '--collect "Code coverage"'
@@ -44,7 +59,7 @@ steps:
   displayName: 'Publish'
   inputs:
     command: 'publish'
-    projects: '$(solution)'
+    projects: 'AvScanner.Api/AvScanner.Api.csproj'
     configuration: '$(buildConfiguration)'
     publishWebProjects: true
     zipAfterPublish: true
