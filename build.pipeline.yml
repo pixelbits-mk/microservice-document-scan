@@ -14,11 +14,6 @@ variables:
   imageName: 'studioworks/avscanner-api'
 
 steps:
-- task: NuGetAuthenticate@0
-  displayName: 'NuGet Authenticate'
-  inputs:
-    nuGetServiceConnections: '$(nugetServiceConnection)'
-
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'

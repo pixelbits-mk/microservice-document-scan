@@ -21,3 +21,13 @@ docker push studioworks.azurecr.io/microservice-document-scanner
     projects: 'AvScanner.Api/AvScanner.Api.csproj'
     feedsToUse: 'select'
     vstsFeed: 'kangmike'
+  
+6. Get the Service Principal's Object ID:
+
+You can find the Object ID of your Service Principal using the Azure CLI or Azure Portal. Look for App Registration for your app service.
+1a3ca2c8-33c1-49f1-b59a-ddd1022da5d9
+
+7. Setup a Nuget Service Connection in DevOps
+https://pkgs.dev.azure.com/kangmike/AvScanner/_packaging/kangmike/nuget/v3/index.json
+Create a PAT with Packaging Read and Packaging Write permissions in Azure DevOps
+
