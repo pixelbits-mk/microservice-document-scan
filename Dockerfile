@@ -9,7 +9,7 @@ ENV NUGET_FEED_URL=https://pkgs.dev.azure.com/kangmike/_packaging/kangmike/nuget
 # Set up environment variable with your PAT
 ENV NUGET_PAT=qrk2odzaf75zr4vckj2b5xlv2mkmvyc27t2wpt3du3no3ol7sqmq
 
-RUN apt-get update && apt-get install -y nuget 
+# RUN apt-get update && apt-get install -y nuget 
 
 COPY ["nuget.config", "/nuget.config"]
 # RUN dotnet nuget update source "kangmike" -s $NUGET_FEED_URL -u kangmike -p "$NUGET_PAT" --store-password-in-clear-text
