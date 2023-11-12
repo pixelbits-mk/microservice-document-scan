@@ -5,6 +5,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
+  buildDate: $[format('{0:yyyyMMdd}', pipeline.startTime)]
+  buildCounter: $[counter(variables['buildDate'], 1)]
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
@@ -12,6 +14,8 @@ variables:
   dockerRegistryServiceConnection: 'Azure Container Registry'
   dockerfilePath: './Dockerfile'
   imageName: 'microservice-av-scanner'
+
+name: $(buildDate).$(buildCounter)
 
 steps:
 - task: UseDotNet@2
