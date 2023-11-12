@@ -8,7 +8,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  dockerRegistryServiceConnection: '<Your-Service-Connection-Name>'
+  dockerRegistryServiceConnection: 'Azure Container Registry'
   dockerfilePath: './Dockerfile'
   imageName: 'studioworks/avscanner-api:$(Build.BuildId)'
 
@@ -37,7 +37,7 @@ steps:
     command: 'restore'
     projects: 'AvScanner.Api/AvScanner.Api.csproj'
     feedsToUse: 'select'
-    vstsFeed: '<Your-VSTS-Feed-Id>'
+    vstsFeed: 'kangmike'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build'
