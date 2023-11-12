@@ -33,7 +33,7 @@ steps:
     dockerfile: '$(dockerfilePath)'
     buildContext: '$(Build.SourcesDirectory)'
     tags: |
-      $(Build.BuildId)
+      $(buildDate).$(buildCounter)
       latest
 
 - task: DotNetCoreCLI@2
