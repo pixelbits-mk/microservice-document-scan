@@ -11,7 +11,7 @@ variables:
   nugetServiceConnection: 'NuGet Service Connection'
   dockerRegistryServiceConnection: 'Azure Container Registry'
   dockerfilePath: './Dockerfile'
-  imageName: 'avscanner-api'
+  imageName: 'microservice-av-scanner'
 
 steps:
 - task: UseDotNet@2
