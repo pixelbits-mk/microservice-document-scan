@@ -31,3 +31,5 @@ You can find the Object ID of your Service Principal using the Azure CLI or Azur
 https://pkgs.dev.azure.com/kangmike/AvScanner/_packaging/kangmike/nuget/v3/index.json
 Create a PAT with Packaging Read and Packaging Write permissions in Azure DevOps
 
+test
+
