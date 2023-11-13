@@ -1,49 +1,41 @@
 trigger:
-- '*'
-
-pr:
-- '*'
-
-pool:
-  vmImage: 'ubuntu-latest'
+- master
 
 variables:
-  azureSubscription: 'Azure subscription 1'
-  webAppName: 'az-scanner'
-  resourceGroup: 'test'
-  dockerImage: 'studioworks.azurecr.io/microservice-av-scanner:$(Build.BuildId)'
-  environmentName: 'Development'
+- group: 'YourVariableGroup'  # Replace with the name of your variable group
 
 stages:
 - stage: Deploy
   displayName: 'Deploy to Azure App Service'
   jobs:
-  - deployment: Deploy
-    displayName: 'Deploy to Azure App Service'
+  - job: DeployJob
+    displayName: 'Deploy Job'
     pool:
       vmImage: 'ubuntu-latest'
-    environment: '$(environmentName)'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: UseDotNet@2
-            inputs:
-              packageType: 'sdk'
-              version: '6.x'
-              installationPath: $(Agent.ToolsDirectory)/dotnet
-          - task: AzureCLI@2
-            displayName: 'Deploy to Azure App Service'
-            inputs:
-              azureSubscription: '$(azureSubscription)'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
-              inlineScript: |
-                az webapp config container set \
-                  --name $(webAppName) \
-                  --resource-group $(resourceGroup) \
-                  --docker-custom-image-name $(dockerImage)
-                az webapp config appsettings set \
-                  --name $(webAppName) \
-                  --resource-group $(resourceGroup) \
-                  --settings ASPNETCORE_ENVIRONMENT=Development
+
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        artifactName: 'outputVariables'
+        downloadPath: '$(System.ArtifactsDirectory)/outputVariables'
+
+    - powershell: |
+        $buildVersion = Get-Content "$(System.ArtifactsDirectory)/outputVariables/buildVersion"
+        Write-Host "Using buildVersion: $buildVersion"
+        echo "##vso[task.setvariable variable=buildVersion]$buildVersion"
+      displayName: 'Set Release Variable'
+
+    - task: AzureCLI@2
+      displayName: 'Deploy to Azure App Service'
+      inputs:
+        azureSubscription: '<Your Azure Subscription>'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          # Use the release variable in your deployment script
+          az webapp config container set \
+            --name av-scanner \
+            --resource-group test \
+            --docker-custom-image-name studioworks.azurecr.io/microservice-av-scanner:$(buildVersion)
+
+      # Add more tasks as needed for your deployment

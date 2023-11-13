@@ -24,6 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{EF81AA
 	ProjectSection(SolutionItems) = preProject
 		build.pipeline.yml = build.pipeline.yml
 		nuget.config = nuget.config
+		release.pipeline.yaml = release.pipeline.yaml
 	EndProjectSection
 EndProject
 Global
