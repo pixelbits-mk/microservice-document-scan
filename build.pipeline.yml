@@ -41,7 +41,13 @@ steps:
 - script: |
     echo "##vso[task.setvariable variable=buildVersion;isOutput=true]$(buildVersion)"
   displayName: 'Set Build Version Output Variable'
-
+# Publish output variables as an artifact
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifact: 'outputVariables'
+    publishLocation: 'pipeline'
+  
 - task: DotNetCoreCLI@2
   displayName: 'Restore NuGet Packages'
   inputs:
@@ -82,10 +88,5 @@ steps:
     artifactName: 'drop'
     publishLocation: 'Container'
 
-# Publish output variables as an artifact
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifact: 'outputVariables'
-    publishLocation: 'pipeline'
+
  
