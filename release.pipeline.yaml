@@ -1,0 +1,49 @@
+trigger:
+- '*'
+
+pr:
+- '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  azureSubscription: 'Azure subscription 1'
+  webAppName: 'az-scanner'
+  resourceGroup: 'test'
+  dockerImage: 'studioworks.azurecr.io/microservice-av-scanner:$(Build.BuildId)'
+  environmentName: 'Development'
+
+stages:
+- stage: Deploy
+  displayName: 'Deploy to Azure App Service'
+  jobs:
+  - deployment: Deploy
+    displayName: 'Deploy to Azure App Service'
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: '$(environmentName)'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: UseDotNet@2
+            inputs:
+              packageType: 'sdk'
+              version: '6.x'
+              installationPath: $(Agent.ToolsDirectory)/dotnet
+          - task: AzureCLI@2
+            displayName: 'Deploy to Azure App Service'
+            inputs:
+              azureSubscription: '$(azureSubscription)'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az webapp config container set \
+                  --name $(webAppName) \
+                  --resource-group $(resourceGroup) \
+                  --docker-custom-image-name $(dockerImage)
+                az webapp config appsettings set \
+                  --name $(webAppName) \
+                  --resource-group $(resourceGroup) \
+                  --settings ASPNETCORE_ENVIRONMENT=Development
