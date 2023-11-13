@@ -33,7 +33,8 @@ namespace AvScanner.Api.Controllers
                 {
                     ProcessStartInfo startInfo = new ProcessStartInfo
                     {
-                        FileName = "clamdscan appsettings.json",
+                        FileName = "clamdscan",
+                        Arguments = "docs",
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
                         UseShellExecute = false,
